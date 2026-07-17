@@ -16,70 +16,70 @@ export const AirQualityCard = ({ delay = 0 }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: delay * 0.08 }}
-      className="glass-card rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 group border-white/30 dark:border-white/10 col-span-1 md:col-span-2 shadow-lg backdrop-blur-xl relative overflow-hidden"
+      initial={{ opacity: 0, scale: 0.96, y: 15 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: delay * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      className="glass-card rounded-[2rem] p-6 flex flex-col justify-between hover:scale-[1.02] hover:-translate-y-1.5 transition-all duration-300 group border border-white/40 dark:border-white/15 col-span-1 md:col-span-2 shadow-xl backdrop-blur-2xl bg-white/35 dark:bg-slate-900/60 relative overflow-hidden"
     >
       {/* Top Header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center space-x-2 text-slate-600 dark:text-slate-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-          <span className="p-2 rounded-xl bg-white/30 dark:bg-slate-800 shadow-sm">
-            <FiActivity className="w-4 h-4 text-emerald-500 animate-pulse" />
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center space-x-2.5 text-slate-700 dark:text-slate-300 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+          <span className="p-2.5 rounded-2xl bg-white/40 dark:bg-slate-800/80 border border-white/40 dark:border-white/15 shadow-md shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+            <FiActivity className="w-5 h-5 text-emerald-500 animate-pulse" />
           </span>
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider">Air Quality & Pollution (US AQI)</span>
+          <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest">Air Quality Index (US AQI)</span>
         </div>
 
-        <span className={`text-xs font-bold px-3 py-1 rounded-full border ${status.bg} border-white/20`}>
+        <span className={`text-xs font-black px-3.5 py-1 rounded-full border ${status.bg} border-white/30 shadow-sm`}>
           {status.label}
         </span>
       </div>
 
       {/* Main Content Grid: AQI Score + Breakdown */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center my-2">
-        <div className="flex items-baseline space-x-2 sm:border-r sm:border-white/15 pr-4">
-          <span className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center my-3">
+        <div className="flex items-baseline space-x-3 sm:border-r sm:border-white/20 pr-4">
+          <span className="text-5xl sm:text-6xl font-black tracking-tight text-slate-950 dark:text-white drop-shadow-sm">
             {aqi !== null ? Math.round(aqi) : '32'}
           </span>
-          <span className="text-xs font-bold text-slate-500 dark:text-slate-400">AQI Index</span>
+          <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">AQI Score</span>
         </div>
 
-        <div className="sm:col-span-2 grid grid-cols-3 gap-2 text-center bg-white/20 dark:bg-slate-900/40 rounded-2xl p-3 border border-white/10">
+        <div className="sm:col-span-2 grid grid-cols-3 gap-3 text-center bg-white/30 dark:bg-slate-900/60 rounded-2xl p-3.5 border border-white/30 dark:border-white/15 shadow-inner">
           <div>
-            <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">PM2.5</span>
-            <span className="text-sm font-bold text-slate-900 dark:text-white">
-              {pm25 !== null ? `${pm25.toFixed(1)} µg/m³` : '8.4 µg/m³'}
+            <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black">PM2.5</span>
+            <span className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-mono">
+              {pm25 !== null ? `${pm25.toFixed(1)} µg` : '8.4 µg'}
             </span>
           </div>
 
           <div>
-            <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">PM10</span>
-            <span className="text-sm font-bold text-slate-900 dark:text-white">
-              {pm10 !== null ? `${pm10.toFixed(1)} µg/m³` : '14.2 µg/m³'}
+            <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black">PM10</span>
+            <span className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-mono">
+              {pm10 !== null ? `${pm10.toFixed(1)} µg` : '14.2 µg'}
             </span>
           </div>
 
           <div>
-            <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold">Ozone (O₃)</span>
-            <span className="text-sm font-bold text-slate-900 dark:text-white">
-              {ozone !== null ? `${ozone.toFixed(0)} µg/m³` : '48 µg/m³'}
+            <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase font-black">Ozone (O₃)</span>
+            <span className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-mono">
+              {ozone !== null ? `${ozone.toFixed(0)} µg` : '48 µg'}
             </span>
           </div>
         </div>
       </div>
 
       {/* Progress scale */}
-      <div className="my-3 w-full">
-        <div className="w-full h-2.5 bg-slate-300 dark:bg-slate-700 rounded-full overflow-hidden flex">
+      <div className="my-3.5 w-full">
+        <div className="w-full h-3 bg-slate-300/80 dark:bg-slate-800 rounded-full overflow-hidden flex shadow-inner border border-white/20">
           <div
-            className="h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-600 rounded-full transition-all duration-1000"
+            className="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-600 rounded-full transition-all duration-1000 shadow-sm"
             style={{ width: `${Math.min(((aqi || 32) / 300) * 100, 100)}%` }}
           />
         </div>
       </div>
 
       {/* Advice footer */}
-      <div className="flex items-start space-x-2 text-xs text-slate-600 dark:text-slate-400 mt-2 border-t border-white/10 pt-2.5">
+      <div className="flex items-start space-x-2.5 text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 mt-3 border-t border-white/20 dark:border-white/10 pt-3">
         <FiShield className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
         <span>{status.advice}</span>
       </div>

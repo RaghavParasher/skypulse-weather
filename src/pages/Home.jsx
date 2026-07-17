@@ -231,36 +231,36 @@ export const Home = ({ onOpenSearchModal }) => {
             {/* 9. Real Air Quality Card (Takes 2 columns) */}
             <AirQualityCard delay={9} />
 
-            {/* 10. Weather Alerts Placeholder Card */}
+            {/* 10. Weather Alerts Card */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.8 }}
-              className="glass-card rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 border-white/30 dark:border-white/10 col-span-1 md:col-span-2 shadow-lg backdrop-blur-xl"
+              initial={{ opacity: 0, scale: 0.96, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="glass-card rounded-[2rem] p-6 flex flex-col justify-between hover:scale-[1.02] hover:-translate-y-1.5 transition-all duration-300 border border-white/40 dark:border-white/15 col-span-1 md:col-span-2 shadow-xl backdrop-blur-2xl bg-white/35 dark:bg-slate-900/60 relative overflow-hidden"
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-2 text-slate-600 dark:text-slate-400">
-                  <span className="p-2 rounded-xl bg-emerald-500/20 text-emerald-500 shadow-sm">
-                    <FiAlertCircle className="w-4 h-4" />
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-2.5 text-slate-700 dark:text-slate-300">
+                  <span className="p-2.5 rounded-2xl bg-white/40 dark:bg-slate-800/80 border border-white/40 dark:border-white/15 text-emerald-500 shadow-md shrink-0">
+                    <FiAlertCircle className="w-5 h-5 animate-pulse" />
                   </span>
-                  <span className="text-xs sm:text-sm font-bold uppercase tracking-wider">National Weather Alerts</span>
+                  <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest">National Weather Alerts</span>
                 </div>
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                <span className="text-xs font-black px-3.5 py-1 rounded-full bg-emerald-500/25 text-emerald-300 border border-emerald-400/30 shadow-sm">
                   Normal Status
                 </span>
               </div>
 
-              <div className="my-2">
-                <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              <div className="my-3">
+                <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-950 dark:text-white drop-shadow-sm">
                   No Severe Weather Warnings
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">
-                  All atmospheric parameters are stable across this region. No extreme storms, floods, or high-wind advisories are currently in effect by Open-Meteo meteorological centers.
+                <p className="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                  All atmospheric parameters are stable across this region. No extreme storms, floods, or high-wind advisories are currently in effect by meteorological centers.
                 </p>
               </div>
 
-              <div className="flex items-center space-x-2 text-xs text-slate-500 dark:text-slate-400 mt-3 border-t border-white/10 pt-2.5">
-                <span>Alert status monitored 24/7 automatically</span>
+              <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 dark:text-slate-400 mt-3 border-t border-white/20 dark:border-white/10 pt-3">
+                <span>⚡ Alert status monitored 24/7 automatically via satellite streams</span>
               </div>
             </motion.div>
           </div>

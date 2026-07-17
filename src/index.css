@@ -14,31 +14,37 @@
 /* Custom Glassmorphism & Windows 11 Mica / Material Design 3 Utilities */
 @layer utilities {
   .glass-panel {
-    @apply bg-white/20 dark:bg-slate-900/40 backdrop-blur-xl border border-white/30 dark:border-white/10 shadow-2xl shadow-black/10;
+    @apply bg-white/25 dark:bg-slate-900/50 backdrop-blur-2xl border border-white/40 dark:border-white/15 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] transition-all duration-500;
+    box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
   }
 
   .glass-card {
-    @apply bg-white/30 dark:bg-slate-900/50 backdrop-blur-md border border-white/40 dark:border-white/10 shadow-lg shadow-black/5 transition-all duration-300;
+    @apply bg-white/35 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/15 shadow-xl transition-all duration-300;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
   }
 
   .glass-card-hover {
-    @apply hover:bg-white/40 dark:hover:bg-slate-800/60 hover:border-white/50 dark:hover:border-white/20 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300;
+    @apply hover:bg-white/45 dark:hover:bg-slate-800/80 hover:border-white/60 dark:hover:border-blue-400/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300;
   }
 
   .glass-input {
-    @apply bg-white/30 dark:bg-slate-900/60 backdrop-blur-md border border-white/40 dark:border-white/15 focus:border-blue-400 dark:focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all duration-300;
+    @apply bg-white/40 dark:bg-slate-900/70 backdrop-blur-xl border border-white/50 dark:border-white/20 focus:border-blue-400 dark:focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/25 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all duration-300 rounded-2xl shadow-inner;
   }
 
   .glass-pill {
-    @apply bg-white/25 dark:bg-slate-900/60 backdrop-blur-md border border-white/30 dark:border-white/10 text-xs font-medium px-3 py-1 rounded-full shadow-sm;
+    @apply bg-white/30 dark:bg-slate-900/70 backdrop-blur-md border border-white/40 dark:border-white/15 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-md transition-all duration-300 hover:bg-white/40 dark:hover:bg-slate-800;
   }
 
   .neon-glow {
-    box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 0 35px -5px rgba(59, 130, 246, 0.55);
   }
 
   .neon-glow-amber {
-    box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.4);
+    box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.55);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 35px -5px rgba(168, 85, 247, 0.55);
   }
 }
 

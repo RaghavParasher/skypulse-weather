@@ -7,28 +7,31 @@ export const HighlightCard = ({
   value,
   subtext,
   badge,
-  badgeColor = 'bg-blue-500/20 text-blue-300 border-blue-400/30',
+  badgeColor = 'bg-blue-500/25 text-blue-300 border-blue-400/40',
   children,
   delay = 0
 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: delay * 0.08 }}
-      className="glass-card rounded-3xl p-5 sm:p-6 flex flex-col justify-between hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 group border-white/30 dark:border-white/10 relative overflow-hidden shadow-lg backdrop-blur-xl"
+      initial={{ opacity: 0, scale: 0.96, y: 15 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: delay * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      className="glass-card rounded-[2rem] p-6 flex flex-col justify-between hover:scale-[1.03] hover:-translate-y-1.5 transition-all duration-300 group border border-white/40 dark:border-white/15 relative overflow-hidden shadow-xl backdrop-blur-2xl bg-white/35 dark:bg-slate-900/60"
     >
+      {/* Subtle top inner light highlight */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
       {/* Top Header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center space-x-2 text-slate-600 dark:text-slate-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
-          <span className="p-2 rounded-xl bg-white/30 dark:bg-slate-800 shadow-sm shrink-0">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center space-x-2.5 text-slate-700 dark:text-slate-300 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+          <span className="p-2.5 rounded-2xl bg-white/40 dark:bg-slate-800/80 border border-white/40 dark:border-white/15 shadow-md shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
             {icon}
           </span>
-          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider">{title}</span>
+          <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest">{title}</span>
         </div>
 
         {badge && (
-          <span className={`text-[10px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full border ${badgeColor}`}>
+          <span className={`text-[10px] sm:text-xs font-black px-3 py-1 rounded-full border shadow-sm ${badgeColor}`}>
             {badge}
           </span>
         )}
@@ -36,17 +39,17 @@ export const HighlightCard = ({
 
       {/* Main Metric Value */}
       <div className="my-2">
-        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        <h3 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-950 dark:text-white drop-shadow-sm">
           {value}
         </h3>
       </div>
 
       {/* Custom visual children gauges (progress bar, compass, etc.) */}
-      {children && <div className="my-3 w-full">{children}</div>}
+      {children && <div className="my-3.5 w-full">{children}</div>}
 
       {/* Subtext description */}
       {subtext && (
-        <p className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 mt-2 border-t border-white/10 pt-2.5">
+        <p className="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 mt-3 border-t border-white/20 dark:border-white/10 pt-3 leading-relaxed">
           {subtext}
         </p>
       )}

@@ -53,15 +53,15 @@ export const HourlyForecast = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="w-full glass-panel rounded-3xl p-6 sm:p-8 border-white/30 dark:border-white/15 backdrop-blur-2xl shadow-xl relative"
+      className="w-full glass-panel rounded-[2.5rem] p-7 sm:p-9 border border-white/40 dark:border-white/20 backdrop-blur-3xl shadow-2xl relative overflow-hidden"
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-2.5 text-slate-700 dark:text-slate-200">
-          <span className="p-2 rounded-xl bg-blue-500/20 text-blue-500 shadow-sm">
+      <div className="flex items-center justify-between mb-7 border-b border-white/20 pb-4">
+        <div className="flex items-center space-x-3 text-slate-800 dark:text-slate-100">
+          <span className="p-3 rounded-2xl bg-gradient-to-tr from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30">
             <FiClock className="w-5 h-5 animate-pulse" />
           </span>
-          <h2 className="text-lg sm:text-xl font-extrabold tracking-tight uppercase">24-Hour Forecast</h2>
+          <h2 className="text-xl font-black tracking-tight uppercase">24-Hour Forecast Curve</h2>
         </div>
 
         {/* Scroll navigation arrows */}

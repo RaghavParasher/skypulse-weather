@@ -57,60 +57,67 @@ export const DailyForecast = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="w-full glass-panel rounded-3xl p-6 sm:p-8 border-white/30 dark:border-white/15 backdrop-blur-2xl shadow-xl relative"
+      className="w-full glass-panel rounded-[2.5rem] p-7 sm:p-9 border border-white/40 dark:border-white/20 backdrop-blur-3xl shadow-2xl relative overflow-hidden"
     >
       {/* Header */}
-      <div className="flex items-center space-x-2.5 text-slate-700 dark:text-slate-200 mb-6">
-        <span className="p-2 rounded-xl bg-indigo-500/20 text-indigo-500 shadow-sm">
-          <FiCalendar className="w-5 h-5 animate-pulse" />
+      <div className="flex items-center justify-between mb-7 border-b border-white/20 pb-4">
+        <div className="flex items-center space-x-3 text-slate-800 dark:text-slate-100">
+          <span className="p-3 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30">
+            <FiCalendar className="w-5 h-5 animate-pulse" />
+          </span>
+          <h2 className="text-xl font-black tracking-tight uppercase">7-Day Forecast & Temperature Range</h2>
+        </div>
+        <span className="text-xs font-bold text-slate-500 dark:text-slate-400 px-3 py-1 rounded-full bg-white/20 dark:bg-slate-800/60 border border-white/20">
+          Weekly Outlook
         </span>
-        <h2 className="text-lg sm:text-xl font-extrabold tracking-tight uppercase">7-Day Forecast</h2>
       </div>
 
       {/* 7-Day List */}
-      <div className="space-y-3">
+      <div className="space-y-3.5">
         {days.map((day, idx) => (
           <motion.div
             key={day.id}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: idx * 0.05 }}
-            className={`flex items-center justify-between p-3.5 sm:p-4 rounded-2xl transition-all duration-300 ${
+            className={`flex items-center justify-between p-4 sm:p-5 rounded-[1.75rem] transition-all duration-300 ${
               day.isToday
-                ? 'bg-gradient-to-r from-blue-500/15 via-indigo-500/10 to-transparent border border-blue-400/30'
-                : 'hover:bg-white/30 dark:hover:bg-slate-800/50 border border-transparent'
+                ? 'bg-gradient-to-r from-blue-500/25 via-indigo-500/15 to-transparent border border-blue-400/50 shadow-md shadow-blue-500/10 scale-[1.01]'
+                : 'glass-card hover:bg-white/45 dark:hover:bg-slate-800/70 border border-white/40 dark:border-white/15 hover:scale-[1.01]'
             }`}
           >
             {/* Day Name & Rain Prob */}
-            <div className="w-24 sm:w-32 flex items-center space-x-2 shrink-0">
-              <span className={`text-sm sm:text-base font-bold truncate ${day.isToday ? 'text-blue-500 dark:text-blue-400' : 'text-slate-800 dark:text-slate-200'}`}>
+            <div className="w-28 sm:w-36 flex items-center space-x-2.5 shrink-0">
+              <span className={`text-base sm:text-lg font-black truncate ${day.isToday ? 'text-blue-600 dark:text-blue-300 drop-shadow-sm' : 'text-slate-900 dark:text-slate-100'}`}>
                 {day.dayName}
               </span>
               {day.rainProb > 20 && (
-                <span className="flex items-center space-x-0.5 px-1.5 py-0.5 rounded-md bg-blue-500/20 text-blue-400 text-[10px] font-bold">
-                  <FiCloudRain className="w-2.5 h-2.5" />
+                <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-blue-500/25 text-blue-300 text-xs font-black border border-blue-400/30 shadow-sm">
+                  <FiCloudRain className="w-3 h-3 text-blue-300" />
                   <span>{Math.round(day.rainProb)}%</span>
                 </span>
               )}
             </div>
 
             {/* Weather Icon & Label */}
-            <div className="flex items-center space-x-3 flex-1 justify-start px-2">
-              <WeatherIcon iconCode={day.icon} size="sm" animate={false} />
-              <span className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hidden md:inline truncate">
+            <div className="flex items-center space-x-3.5 flex-1 justify-start px-3">
+              <div className="transform hover:scale-125 transition-transform duration-300">
+                <WeatherIcon iconCode={day.icon} size="sm" animate={false} />
+              </div>
+              <span className="text-sm font-extrabold text-slate-700 dark:text-slate-300 hidden md:inline truncate">
                 {day.label}
               </span>
             </div>
 
             {/* Min Temp */}
-            <span className="w-12 text-right text-sm font-bold text-slate-500 dark:text-slate-400 font-mono shrink-0">
+            <span className="w-14 text-right text-base font-black text-slate-600 dark:text-slate-400 font-mono shrink-0">
               {formatTemperature(day.minTemp, tempUnit)}
             </span>
 
             {/* Apple Weather Style Visual Temperature Bar */}
-            <div className="w-28 sm:w-44 h-2 bg-slate-300/60 dark:bg-slate-800 rounded-full overflow-hidden mx-3 relative flex items-center shrink-0">
+            <div className="w-32 sm:w-52 h-3 bg-slate-300/80 dark:bg-slate-800/90 rounded-full overflow-hidden mx-4 relative flex items-center shrink-0 shadow-inner border border-white/20 dark:border-white/5">
               <div
-                className="absolute top-0 bottom-0 rounded-full bg-gradient-to-r from-sky-400 via-amber-400 to-rose-500 shadow-sm"
+                className="absolute top-0 bottom-0 rounded-full bg-gradient-to-r from-sky-400 via-amber-400 to-rose-500 shadow-[0_0_12px_rgba(245,158,11,0.6)]"
                 style={{
                   left: `${day.leftPercent}%`,
                   width: `${day.widthPercent}%`
@@ -119,7 +126,7 @@ export const DailyForecast = () => {
             </div>
 
             {/* Max Temp */}
-            <span className="w-12 text-left text-sm font-extrabold text-slate-900 dark:text-white font-mono shrink-0">
+            <span className="w-14 text-left text-base font-black text-slate-950 dark:text-white font-mono shrink-0 drop-shadow-sm">
               {formatTemperature(day.maxTemp, tempUnit)}
             </span>
           </motion.div>
