@@ -16,15 +16,12 @@ import { NotFound } from './pages/NotFound';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function App() {
-  const { showInitialModal, dismissInitialModal } = useWeather();
+  const { isInitialLocationSelect, dismissInitialModal } = useWeather();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-x-hidden selection:bg-blue-500 selection:text-white">
-      {/* Dynamic Animated Atmospheric Background Container */}
-      <WeatherBackground />
-
+    <WeatherBackground>
       {/* Glassmorphic Navigation Header */}
       <Navbar
         onOpenSearch={() => setIsSearchModalOpen(true)}
@@ -77,7 +74,7 @@ function App() {
 
       {/* Initial Manual Location Picker Modal (Prompted on first ever load) */}
       <InitialLocationModal
-        isOpen={showInitialModal}
+        isOpen={isInitialLocationSelect}
         onOpenSearch={() => {
           dismissInitialModal();
           setIsSearchModalOpen(true);
@@ -86,7 +83,7 @@ function App() {
 
       {/* Glassmorphic Toast Notifications */}
       <CustomToaster />
-    </div>
+    </WeatherBackground>
   );
 }
 
