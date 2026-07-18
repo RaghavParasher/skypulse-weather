@@ -7,6 +7,8 @@ import { getWeatherMeta } from '../services/weatherApi';
 import { WeatherIcon } from './WeatherIcon';
 import { FiRefreshCw, FiHeart, FiMapPin, FiCalendar, FiArrowUp, FiArrowDown } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { Canvas } from '@react-three/fiber';
+import { FloatingWeatherIcon3D } from './3d/FloatingWeatherIcon3D';
 
 export const WeatherCard = () => {
   const { activeLocation, weatherData, lastUpdated, refreshWeather, loading } = useWeather();
@@ -96,16 +98,24 @@ export const WeatherCard = () => {
         </div>
       </div>
 
-      {/* Main Hero Display: Temp + Icon + High/Low */}
+      {/* Main Hero Display: Temp + 3D Icon + High/Low */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 relative z-10">
         {/* Left column: Big temperature & Weather condition */}
         <div className="lg:col-span-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center space-x-6 sm:space-x-8">
-            <div className="relative">
+            {/* 3D Floating Weather Sculpture Canvas */}
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 shrink-0 flex items-center justify-center">
               <div className="absolute inset-0 bg-blue-500/30 dark:bg-blue-400/20 rounded-full blur-2xl animate-pulse" />
-              <div className="relative z-10 transform group-hover:scale-110 transition-transform duration-700">
-                <WeatherIcon iconCode={meta.icon} size="2xl" animate={true} />
-              </div>
+              <Canvas
+                camera={{ position: [0, 0, 3.5], fov: 50 }}
+                gl={{ alpha: true, antialias: true }}
+                dpr={[1, 2]}
+              >
+                <FloatingWeatherIcon3D
+                  weatherType={getWeatherMeta(currentCode, isDay).type || 'clear'}
+                  isDay={isDay === 1}
+                />
+              </Canvas>
             </div>
 
             <div>

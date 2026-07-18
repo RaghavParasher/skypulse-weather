@@ -7,6 +7,7 @@ import { MovingClouds } from './MovingClouds';
 import { RainAnimation } from './RainAnimation';
 import { SnowParticles } from './SnowParticles';
 import { LightningEffect } from './LightningEffect';
+import { AtmosphericBackground3D } from '../3d/AtmosphericBackground3D';
 
 export const WeatherBackground = ({ children }) => {
   const { weatherState } = useWeather();
@@ -35,8 +36,10 @@ export const WeatherBackground = ({ children }) => {
 
   return (
     <div className={`min-h-screen w-full relative transition-colors duration-1000 overflow-x-hidden ${getGradientClasses()}`}>
-      {/* Background Animated Layers */}
+      {/* Background Animated Layers + GPU 3D Atmospheric Particle System */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <AtmosphericBackground3D />
+
         {weatherState === 'sunny' && (
           <>
             <SunAnimation />

@@ -34,6 +34,7 @@ import {
   FiTrendingUp
 } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { InteractiveGlobeSection } from '../components/3d/InteractiveGlobeSection';
 
 export const Home = ({ onOpenSearchModal }) => {
   const { weatherData, loading, error } = useWeather();
@@ -86,6 +87,9 @@ export const Home = ({ onOpenSearchModal }) => {
 
         {/* Hero Card */}
         <WeatherCard />
+
+        {/* 3D Interactive Globe Section */}
+        <InteractiveGlobeSection />
 
         {/* Today's Highlights Section */}
         <div>
