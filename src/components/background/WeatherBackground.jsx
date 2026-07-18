@@ -12,25 +12,25 @@ import { AtmosphericBackground3D } from '../3d/AtmosphericBackground3D';
 export const WeatherBackground = ({ children }) => {
   const { weatherState } = useWeather();
 
-  // Vibrant macOS Sonoma & Aurora Cyber-Glass color gradients
+  // Ultra-Dark Obsidian & Midnight Space color gradients across all weather conditions
   const getGradientClasses = () => {
     switch (weatherState) {
       case 'sunny':
-        return 'bg-gradient-to-br from-[#0284c7] via-[#2563eb] to-[#4f46e5] dark:from-[#0c4a6e] dark:via-[#1e3a8a] dark:to-[#311042] text-white';
+        return 'bg-gradient-to-br from-[#040714] via-[#0b1329] to-[#111c44] text-white';
       case 'night':
-        return 'bg-gradient-to-br from-[#090d16] via-[#1e1b4b] to-[#311042] text-white';
+        return 'bg-gradient-to-br from-[#02040a] via-[#070a14] to-[#0e1326] text-white';
       case 'cloudy':
-        return 'bg-gradient-to-br from-[#1e293b] via-[#334155] to-[#3b82f6] dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#312e81] text-white';
+        return 'bg-gradient-to-br from-[#070b14] via-[#101728] to-[#1e293b] text-white';
       case 'rain':
-        return 'bg-gradient-to-br from-[#0f172a] via-[#164e63] to-[#1e3a8a] dark:from-[#082f49] dark:via-[#0c4a6e] dark:to-[#172554] text-white';
+        return 'bg-gradient-to-br from-[#030712] via-[#081a29] to-[#0d1f33] text-white';
       case 'snow':
-        return 'bg-gradient-to-br from-[#38bdf8] via-[#60a5fa] to-[#818cf8] dark:from-[#0f172a] dark:via-[#1e3a8a] dark:to-[#312e81] text-white';
+        return 'bg-gradient-to-br from-[#080d1a] via-[#111827] to-[#1e293b] text-white';
       case 'storm':
-        return 'bg-gradient-to-br from-[#180828] via-[#3b0764] to-[#090d16] dark:from-[#0c0414] dark:via-[#2e1065] dark:to-[#0f172a] text-white';
+        return 'bg-gradient-to-br from-[#020308] via-[#120524] to-[#080d1a] text-white';
       case 'fog':
-        return 'bg-gradient-to-br from-[#334155] via-[#475569] to-[#64748b] dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#334155] text-white';
+        return 'bg-gradient-to-br from-[#080c14] via-[#111827] to-[#1f2937] text-white';
       default:
-        return 'bg-gradient-to-br from-[#090d16] via-[#1e1b4b] to-[#311042] text-white';
+        return 'bg-gradient-to-br from-[#02040a] via-[#070a14] to-[#0e1326] text-white';
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Sphere, OrbitControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
@@ -19,6 +19,30 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
   const globeRef = useRef();
   const cloudsRef = useRef();
   const atmosphereRef = useRef();
+
+  const [textures, setTextures] = useState({
+    day: null,
+    night: null,
+    clouds: null,
+    normal: null,
+  });
+
+  useEffect(() => {
+    const loader = new THREE.TextureLoader();
+    const loadTex = (url) =>
+      new Promise((resolve) => {
+        loader.load(url, (tex) => resolve(tex), undefined, () => resolve(null));
+      });
+
+    Promise.all([
+      loadTex('./textures/earth_day.jpg'),
+      loadTex('./textures/earth_night.png'),
+      loadTex('./textures/earth_clouds.png'),
+      loadTex('./textures/earth_normal.jpg'),
+    ]).then(([day, night, clouds, normal]) => {
+      setTextures({ day, night, clouds, normal });
+    });
+  }, []);
 
   // Calculate pin position precisely on the surface of radius 2
   const pinPos = useMemo(() => latLongToVector3(latitude, longitude, 2.05), [latitude, longitude]);
@@ -49,10 +73,10 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
       />
 
       {/* High-Intensity Dynamic Lighting for Maximum Contrast & Glow */}
-      <ambientLight intensity={isDay ? 2.2 : 1.5} />
+      <ambientLight intensity={isDay ? 2.5 : 1.8} />
       <directionalLight
         position={[6, 5, 6]}
-        intensity={isDay ? 3.5 : 2.2}
+        intensity={isDay ? 3.8 : 2.5}
         color={isDay ? '#ffffff' : '#60a5fa'}
       />
       <pointLight position={[-6, -4, -6]} intensity={1.8} color="#38bdf8" />
@@ -60,36 +84,41 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
 
       {/* Main Globe Group */}
       <group ref={globeRef}>
-        {/* Core Earth Sphere (Bright Holographic Ocean Blue & Sapphire) */}
+        {/* Core Earth Sphere (Real Continents Map, Oceans & Night City Lights) */}
         <Sphere args={[2, 64, 64]}>
           <meshStandardMaterial
-            color={isDay ? '#0284c7' : '#1e3a8a'}
-            roughness={0.2}
-            metalness={0.6}
-            emissive={isDay ? '#0369a1' : '#3b82f6'}
-            emissiveIntensity={0.65}
+            map={isDay ? (textures.day || null) : (textures.night || null)}
+            normalMap={textures.normal || null}
+            normalScale={new THREE.Vector2(0.5, 0.5)}
+            emissiveMap={isDay ? null : (textures.night || null)}
+            emissive={isDay ? '#000000' : '#ffffff'}
+            emissiveIntensity={isDay ? 0 : 0.85}
+            color={!textures.day ? (isDay ? '#0284c7' : '#1e3a8a') : '#ffffff'}
+            roughness={0.4}
+            metalness={0.2}
           />
         </Sphere>
 
-        {/* High-Tech Holographic Lat-Long Wireframe Layer (High Opacity Bright Cyan) */}
-        <Sphere args={[2.02, 32, 32]}>
+        {/* High-Tech Holographic Lat-Long Wireframe Layer */}
+        <Sphere args={[2.015, 32, 32]}>
           <meshBasicMaterial
             color={isDay ? '#7dd3fc' : '#38bdf8'}
             wireframe={true}
             transparent={true}
-            opacity={0.65}
+            opacity={0.18}
           />
         </Sphere>
 
-        {/* Outer Drifting Atmosphere Cloud Layer */}
-        <Sphere ref={cloudsRef} args={[2.05, 32, 32]}>
+        {/* Outer Drifting Atmosphere Cloud Layer (Real Cloud Cover) */}
+        <Sphere ref={cloudsRef} args={[2.04, 32, 32]}>
           <meshStandardMaterial
+            map={textures.clouds || null}
             color="#ffffff"
             transparent={true}
-            opacity={0.25}
+            opacity={textures.clouds ? 0.65 : 0.25}
             roughness={0.8}
             emissive="#ffffff"
-            emissiveIntensity={0.2}
+            emissiveIntensity={0.15}
           />
         </Sphere>
 
