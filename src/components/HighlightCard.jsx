@@ -23,11 +23,11 @@ export const HighlightCard = ({
 
       {/* Top Header */}
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-2.5 text-slate-700 dark:text-slate-300 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+        <div className="flex items-center space-x-2.5 text-white group-hover:text-sky-300 transition-colors">
           <span className="p-2.5 rounded-2xl bg-white/40 dark:bg-slate-800/80 border border-white/40 dark:border-white/15 shadow-md shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
             {icon}
           </span>
-          <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest">{title}</span>
+          <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-white drop-shadow">{title}</span>
         </div>
 
         {badge && (
@@ -39,7 +39,7 @@ export const HighlightCard = ({
 
       {/* Main Metric Value */}
       <div className="my-2">
-        <h3 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-950 dark:text-white drop-shadow-sm">
+        <h3 className="text-3xl sm:text-4xl font-black tracking-tight text-white drop-shadow-sm">
           {value}
         </h3>
       </div>
@@ -49,7 +49,7 @@ export const HighlightCard = ({
 
       {/* Subtext description */}
       {subtext && (
-        <p className="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 mt-3 border-t border-white/20 dark:border-white/10 pt-3 leading-relaxed">
+        <p className="text-xs sm:text-sm font-bold text-slate-200 mt-3 border-t border-white/20 pt-3 leading-relaxed">
           {subtext}
         </p>
       )}

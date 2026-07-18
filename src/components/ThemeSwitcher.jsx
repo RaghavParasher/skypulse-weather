@@ -26,9 +26,10 @@ export const ThemeSwitcher = () => {
 
   return (
     <button
+      type="button"
       onClick={cycleTheme}
       title={`Current theme: ${getLabel()}. Click to switch.`}
-      className="flex items-center space-x-2 glass-pill px-3 py-1.5 border-white/30 dark:border-white/15 hover:bg-white/40 dark:hover:bg-slate-800/80 transition-all duration-300 active:scale-95"
+      className="flex items-center space-x-2 glass-pill px-3 py-1.5 border-white/30 hover:bg-white/35 text-white font-bold transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
@@ -41,7 +42,7 @@ export const ThemeSwitcher = () => {
           {getIcon()}
         </motion.div>
       </AnimatePresence>
-      <span className="text-xs font-semibold tracking-wide capitalize hidden sm:inline">{getLabel()}</span>
+      <span className="text-xs font-black tracking-wide capitalize hidden sm:inline text-white">{getLabel()}</span>
     </button>
   );
 };

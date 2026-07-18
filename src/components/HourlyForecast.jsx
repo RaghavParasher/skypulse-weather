@@ -57,25 +57,27 @@ export const HourlyForecast = () => {
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-7 border-b border-white/20 pb-4">
-        <div className="flex items-center space-x-3 text-slate-800 dark:text-slate-100">
+        <div className="flex items-center space-x-3 text-white">
           <span className="p-3 rounded-2xl bg-gradient-to-tr from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30">
             <FiClock className="w-5 h-5 animate-pulse" />
           </span>
-          <h2 className="text-xl font-black tracking-tight uppercase">24-Hour Forecast Curve</h2>
+          <h2 className="text-xl font-black tracking-tight uppercase text-white drop-shadow">24-Hour Forecast Curve</h2>
         </div>
 
         {/* Scroll navigation arrows */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 z-30">
           <button
+            type="button"
             onClick={() => scroll('left')}
-            className="p-2 rounded-full glass-card hover:bg-white/40 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all active:scale-90"
+            className="p-2.5 rounded-full bg-white/20 hover:bg-white/35 text-white border border-white/30 shadow-md transition-all active:scale-90 cursor-pointer"
             title="Scroll left"
           >
             <FiChevronLeft className="w-4 h-4" />
           </button>
           <button
+            type="button"
             onClick={() => scroll('right')}
-            className="p-2 rounded-full glass-card hover:bg-white/40 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all active:scale-90"
+            className="p-2.5 rounded-full bg-white/20 hover:bg-white/35 text-white border border-white/30 shadow-md transition-all active:scale-90 cursor-pointer"
             title="Scroll right"
           >
             <FiChevronRight className="w-4 h-4" />

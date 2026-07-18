@@ -139,32 +139,32 @@ export const WeatherCard = () => {
         {/* Right column: Atmospheric High / Low & Feels Like Capsule */}
         <div className="lg:col-span-4 flex flex-col space-y-3.5 bg-slate-900/65 rounded-3xl p-6 border border-white/30 backdrop-blur-2xl shadow-xl hover:shadow-2xl transition-all duration-300">
           <div className="flex items-center justify-between text-base font-bold">
-            <span className="text-slate-300">Feels Like</span>
-            <span className="text-xl font-black text-white bg-blue-500/25 px-3 py-1 rounded-xl border border-blue-400/40">
+            <span className="text-white">Feels Like</span>
+            <span className="text-xl font-black text-white bg-blue-500/35 px-3 py-1 rounded-xl border border-blue-400/50">
               {formatTemperature(current.apparent_temperature, tempUnit)}
             </span>
           </div>
 
           <div className="flex items-center justify-between text-base font-bold border-t border-white/20 pt-3.5">
-            <span className="text-slate-300 flex items-center space-x-2">
-              <span className="p-1.5 rounded-lg bg-emerald-500/25 text-emerald-400">
+            <span className="text-white flex items-center space-x-2">
+              <span className="p-1.5 rounded-lg bg-emerald-500/30 text-emerald-300">
                 <FiArrowUp className="w-4 h-4" />
               </span>
               <span>Today's High</span>
             </span>
-            <span className="text-lg font-black text-white font-mono">
+            <span className="text-lg font-black text-white font-mono drop-shadow">
               {todayMax !== null ? formatTemperature(todayMax, tempUnit) : '--°'}
             </span>
           </div>
 
           <div className="flex items-center justify-between text-base font-bold border-t border-white/20 pt-3.5">
-            <span className="text-slate-300 flex items-center space-x-2">
-              <span className="p-1.5 rounded-lg bg-blue-500/25 text-blue-300">
+            <span className="text-white flex items-center space-x-2">
+              <span className="p-1.5 rounded-lg bg-blue-500/30 text-sky-300">
                 <FiArrowDown className="w-4 h-4" />
               </span>
               <span>Today's Low</span>
             </span>
-            <span className="text-lg font-black text-white font-mono">
+            <span className="text-lg font-black text-white font-mono drop-shadow">
               {todayMin !== null ? formatTemperature(todayMin, tempUnit) : '--°'}
             </span>
           </div>

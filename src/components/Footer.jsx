@@ -31,7 +31,7 @@ export const Footer = () => {
         {/* Interactive Weather Tip Banner */}
         <div
           onClick={nextFact}
-          className="cursor-pointer group glass-card p-3 rounded-2xl border-white/25 dark:border-white/10 hover:border-blue-400/50 flex items-center justify-between space-x-3 transition-all duration-300"
+          className="cursor-pointer group glass-card p-3.5 rounded-2xl border-white/30 bg-white/10 hover:bg-white/20 flex items-center justify-between space-x-3 transition-all duration-300 shadow-md"
           title="Click for next weather tip or fact!"
         >
           <div className="flex items-center space-x-3 overflow-hidden">
@@ -39,11 +39,11 @@ export const Footer = () => {
               <FiZap className="w-4 h-4 animate-spin" style={{ animationDuration: '8s' }} />
             </span>
 
-            <p className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 truncate sm:whitespace-normal">
+            <p className="text-xs sm:text-sm font-bold text-white truncate sm:whitespace-normal drop-shadow-sm">
               {WEATHER_FACTS_AND_TIPS[factIndex]}
             </p>
           </div>
-          <span className="text-[10px] font-bold text-blue-500 group-hover:underline shrink-0 pl-2">
+          <span className="text-xs font-black text-sky-300 group-hover:text-white group-hover:underline shrink-0 pl-2">
             Next Tip →
           </span>
         </div>
@@ -51,48 +51,48 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center md:text-left">
           {/* Brand & Attribution */}
           <div>
-            <h3 className="text-sm font-extrabold tracking-tight bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text text-transparent">
+            <h3 className="text-sm font-black tracking-tight text-white drop-shadow">
               SkyPulse Weather Application
             </h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-xs text-slate-200 mt-1 font-medium">
               Frontend-only architecture powered by Open-Meteo & BigDataCloud APIs without API keys.
             </p>
           </div>
 
           {/* Keyboard Shortcuts Guide */}
           <div className="flex flex-wrap justify-center gap-2">
-            <span className="inline-flex items-center space-x-1 glass-pill px-2.5 py-1 text-[11px] text-slate-600 dark:text-slate-300">
-              <FiCommand className="w-3 h-3 text-blue-500" />
-              <span>Search: <kbd className="font-mono font-bold">Ctrl+K</kbd></span>
+            <span className="inline-flex items-center space-x-1 glass-pill px-3 py-1.5 text-xs text-white bg-white/20 border border-white/30 shadow font-semibold">
+              <FiCommand className="w-3.5 h-3.5 text-sky-300" />
+              <span>Search: <kbd className="font-mono font-bold text-white">Ctrl+K</kbd></span>
             </span>
-            <span className="inline-flex items-center space-x-1 glass-pill px-2.5 py-1 text-[11px] text-slate-600 dark:text-slate-300">
-              <span>Close Modal: <kbd className="font-mono font-bold">ESC</kbd></span>
+            <span className="inline-flex items-center space-x-1 glass-pill px-3 py-1.5 text-xs text-white bg-white/20 border border-white/30 shadow font-semibold">
+              <span>Close Modal: <kbd className="font-mono font-bold text-white">ESC</kbd></span>
             </span>
           </div>
 
           {/* Links & Copyright */}
-          <div className="flex flex-col md:items-end space-y-2 text-xs text-slate-600 dark:text-slate-400">
+          <div className="flex flex-col md:items-end space-y-2 text-xs text-slate-200 font-medium">
             <div className="flex items-center justify-center md:justify-end space-x-4">
               <a
                 href="https://open-meteo.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-blue-500 dark:hover:text-blue-400 flex items-center space-x-1 transition-colors"
+                className="hover:text-white text-slate-200 flex items-center space-x-1 transition-colors font-bold"
               >
                 <span>Open-Meteo API</span>
-                <FiExternalLink className="w-3 h-3" />
+                <FiExternalLink className="w-3 h-3 text-sky-300" />
               </a>
               <a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-blue-500 dark:hover:text-blue-400 flex items-center space-x-1 transition-colors"
+                className="hover:text-white text-slate-200 flex items-center space-x-1 transition-colors font-bold"
               >
-                <FiGithub className="w-3.5 h-3.5" />
+                <FiGithub className="w-3.5 h-3.5 text-sky-300" />
                 <span>GitHub Pages</span>
               </a>
             </div>
-            <p className="flex items-center justify-center md:justify-end space-x-1">
+            <p className="flex items-center justify-center md:justify-end space-x-1 text-slate-200">
               <span>Crafted with</span>
               <FiHeart className="w-3 h-3 text-rose-500 fill-rose-500 inline mx-0.5" />
               <span>using React 19 + Vite + Tailwind CSS</span>

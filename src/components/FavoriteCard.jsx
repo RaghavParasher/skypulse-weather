@@ -48,11 +48,11 @@ export const FavoriteCard = ({ location, onRemove, onSelect }) => {
       {/* Top row: City Name + Remove Button */}
       <div className="flex items-start justify-between z-10">
         <div>
-          <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors flex items-center space-x-1.5">
+          <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-sky-300 transition-colors flex items-center space-x-1.5 drop-shadow-sm">
             <span>{location.name}</span>
             <FiArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -ml-2 group-hover:ml-0" />
           </h3>
-          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs font-bold text-slate-200 mt-0.5">
             {location.country || (location.admin1 !== location.name ? location.admin1 : 'Saved Location')}
           </p>
         </div>
@@ -62,7 +62,7 @@ export const FavoriteCard = ({ location, onRemove, onSelect }) => {
             e.stopPropagation();
             onRemove(location.id || `${location.name}-${location.latitude}-${location.longitude}`);
           }}
-          className="p-2 rounded-full hover:bg-rose-500/20 text-slate-400 hover:text-rose-500 transition-colors shrink-0"
+          className="p-2 rounded-full hover:bg-rose-500/20 text-slate-200 hover:text-rose-400 transition-colors shrink-0"
           title="Remove from Favorites"
         >
           <FiTrash2 className="w-4 h-4" />
@@ -73,27 +73,27 @@ export const FavoriteCard = ({ location, onRemove, onSelect }) => {
       <div className="flex items-end justify-between z-10 mt-4">
         <div>
           {loading ? (
-            <div className="h-10 w-24 bg-white/20 dark:bg-slate-800 animate-pulse rounded-xl" />
+            <div className="h-10 w-24 bg-white/20 animate-pulse rounded-xl" />
           ) : weatherSummary ? (
             <div>
-              <span className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 dark:text-white">
+              <span className="text-4xl sm:text-5xl font-black tracking-tighter text-white drop-shadow">
                 {formatTemperature(weatherSummary.temp, tempUnit)}
               </span>
               {weatherSummary.high !== null && (
-                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-xs font-bold text-slate-200 mt-1">
                   H: {formatTemperature(weatherSummary.high, tempUnit)} • L: {formatTemperature(weatherSummary.low, tempUnit)}
                 </p>
               )}
             </div>
           ) : (
-            <span className="text-lg font-bold text-slate-400">Offline</span>
+            <span className="text-lg font-bold text-slate-300">Offline</span>
           )}
         </div>
 
         {weatherSummary && weatherSummary.meta && (
           <div className="flex flex-col items-end">
             <WeatherIcon iconCode={weatherSummary.meta.icon} size="lg" animate={true} />
-            <span className="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1">
+            <span className="text-xs font-black text-slate-200 mt-1">
               {weatherSummary.meta.label}
             </span>
           </div>

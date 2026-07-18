@@ -61,15 +61,19 @@ export const DailyForecast = () => {
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-7 border-b border-white/20 pb-4">
-        <div className="flex items-center space-x-3 text-slate-800 dark:text-slate-100">
+        <div className="flex items-center space-x-3 text-white">
           <span className="p-3 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30">
             <FiCalendar className="w-5 h-5 animate-pulse" />
           </span>
-          <h2 className="text-xl font-black tracking-tight uppercase">7-Day Forecast & Temperature Range</h2>
+          <h2 className="text-xl font-black tracking-tight uppercase text-white drop-shadow">7-Day Forecast & Temperature Range</h2>
         </div>
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400 px-3 py-1 rounded-full bg-white/20 dark:bg-slate-800/60 border border-white/20">
+        <button
+          type="button"
+          onClick={() => alert('Displaying 7-Day Temperature Range & Weather Trends')}
+          className="text-xs font-bold text-white px-3.5 py-1.5 rounded-full bg-white/20 hover:bg-white/35 border border-white/30 shadow transition-all active:scale-95 cursor-pointer"
+        >
           Weekly Outlook
-        </span>
+        </button>
       </div>
 
       {/* 7-Day List */}
@@ -80,20 +84,21 @@ export const DailyForecast = () => {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: idx * 0.05 }}
-            className={`flex items-center justify-between p-4 sm:p-5 rounded-[1.75rem] transition-all duration-300 ${
+            onClick={() => alert(`${day.dayName}: ${day.label}. High: ${formatTemperature(day.maxTemp, tempUnit)}, Low: ${formatTemperature(day.minTemp, tempUnit)}`)}
+            className={`flex items-center justify-between p-4 sm:p-5 rounded-[1.75rem] transition-all duration-300 cursor-pointer ${
               day.isToday
-                ? 'bg-gradient-to-r from-blue-500/25 via-indigo-500/15 to-transparent border border-blue-400/50 shadow-md shadow-blue-500/10 scale-[1.01]'
-                : 'glass-card hover:bg-white/45 dark:hover:bg-slate-800/70 border border-white/40 dark:border-white/15 hover:scale-[1.01]'
+                ? 'bg-gradient-to-r from-blue-500/35 via-indigo-500/25 to-transparent border border-blue-400/60 shadow-md scale-[1.01]'
+                : 'glass-card hover:bg-white/25 border border-white/30 shadow-md hover:scale-[1.01]'
             }`}
           >
             {/* Day Name & Rain Prob */}
             <div className="w-28 sm:w-36 flex items-center space-x-2.5 shrink-0">
-              <span className={`text-base sm:text-lg font-black truncate ${day.isToday ? 'text-blue-600 dark:text-blue-300 drop-shadow-sm' : 'text-slate-900 dark:text-slate-100'}`}>
+              <span className={`text-base sm:text-lg font-black truncate ${day.isToday ? 'text-sky-300 drop-shadow-sm' : 'text-white'}`}>
                 {day.dayName}
               </span>
               {day.rainProb > 20 && (
-                <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-blue-500/25 text-blue-300 text-xs font-black border border-blue-400/30 shadow-sm">
-                  <FiCloudRain className="w-3 h-3 text-blue-300" />
+                <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-blue-500/30 text-sky-200 text-xs font-black border border-blue-400/40 shadow-sm">
+                  <FiCloudRain className="w-3 h-3 text-sky-300" />
                   <span>{Math.round(day.rainProb)}%</span>
                 </span>
               )}
@@ -104,18 +109,18 @@ export const DailyForecast = () => {
               <div className="transform hover:scale-125 transition-transform duration-300">
                 <WeatherIcon iconCode={day.icon} size="sm" animate={false} />
               </div>
-              <span className="text-sm font-extrabold text-slate-700 dark:text-slate-300 hidden md:inline truncate">
+              <span className="text-sm font-extrabold text-slate-200 hidden md:inline truncate">
                 {day.label}
               </span>
             </div>
 
             {/* Min Temp */}
-            <span className="w-14 text-right text-base font-black text-slate-600 dark:text-slate-400 font-mono shrink-0">
+            <span className="w-14 text-right text-base font-black text-slate-200 font-mono shrink-0">
               {formatTemperature(day.minTemp, tempUnit)}
             </span>
 
             {/* Apple Weather Style Visual Temperature Bar */}
-            <div className="w-32 sm:w-52 h-3 bg-slate-300/80 dark:bg-slate-800/90 rounded-full overflow-hidden mx-4 relative flex items-center shrink-0 shadow-inner border border-white/20 dark:border-white/5">
+            <div className="w-32 sm:w-52 h-3 bg-white/20 rounded-full overflow-hidden mx-4 relative flex items-center shrink-0 shadow-inner border border-white/30">
               <div
                 className="absolute top-0 bottom-0 rounded-full bg-gradient-to-r from-sky-400 via-amber-400 to-rose-500 shadow-[0_0_12px_rgba(245,158,11,0.6)]"
                 style={{
@@ -126,7 +131,7 @@ export const DailyForecast = () => {
             </div>
 
             {/* Max Temp */}
-            <span className="w-14 text-left text-base font-black text-slate-950 dark:text-white font-mono shrink-0 drop-shadow-sm">
+            <span className="w-14 text-left text-base font-black text-white font-mono shrink-0 drop-shadow-sm">
               {formatTemperature(day.maxTemp, tempUnit)}
             </span>
           </motion.div>
