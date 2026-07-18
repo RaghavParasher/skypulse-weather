@@ -42,7 +42,7 @@ export default defineConfig({
       },
       workbox: {
         maximumFileSizeToCacheInBytes: 6000000,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,json}'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\.open-meteo\.com\/.*/i,

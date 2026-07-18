@@ -81,46 +81,46 @@ export const WeatherActions = () => {
     <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 my-4">
       <button
         onClick={handleShare}
-        className="flex items-center space-x-1.5 glass-pill px-3 py-1.5 text-xs hover:bg-blue-500/20 hover:text-blue-400 transition-all text-slate-700 dark:text-slate-300"
+        className="flex items-center space-x-1.5 glass-pill px-3 py-1.5 text-xs hover:bg-blue-500/30 hover:text-white transition-all text-slate-100 font-bold border-white/20"
         title="Share weather on social media or apps"
       >
-        <FiShare2 className="w-3.5 h-3.5 text-blue-500" />
+        <FiShare2 className="w-3.5 h-3.5 text-sky-400" />
         <span>Share</span>
       </button>
 
       <button
         onClick={handleCopySummary}
-        className="flex items-center space-x-1.5 glass-pill px-3 py-1.5 text-xs hover:bg-emerald-500/20 hover:text-emerald-400 transition-all text-slate-700 dark:text-slate-300"
+        className="flex items-center space-x-1.5 glass-pill px-3 py-1.5 text-xs hover:bg-emerald-500/30 hover:text-white transition-all text-slate-100 font-bold border-white/20"
         title="Copy text summary to clipboard"
       >
-        <FiCopy className="w-3.5 h-3.5 text-emerald-500" />
+        <FiCopy className="w-3.5 h-3.5 text-emerald-400" />
         <span>Copy Data</span>
       </button>
 
       <button
         onClick={handleDownloadPDF}
-        className="flex items-center space-x-1.5 glass-pill px-3 py-1.5 text-xs hover:bg-purple-500/20 hover:text-purple-400 transition-all text-slate-700 dark:text-slate-300"
+        className="flex items-center space-x-1.5 glass-pill px-3 py-1.5 text-xs hover:bg-purple-500/30 hover:text-white transition-all text-slate-100 font-bold border-white/20"
         title="Download high-resolution PDF report or Print"
       >
-        <FiDownload className="w-3.5 h-3.5 text-purple-500" />
+        <FiDownload className="w-3.5 h-3.5 text-purple-400" />
         <span>Download PDF</span>
       </button>
 
       <button
         onClick={() => window.print()}
-        className="flex items-center space-x-1.5 glass-pill px-3 py-1.5 text-xs hover:bg-amber-500/20 hover:text-amber-400 transition-all text-slate-700 dark:text-slate-300"
+        className="flex items-center space-x-1.5 glass-pill px-3 py-1.5 text-xs hover:bg-amber-500/30 hover:text-white transition-all text-slate-100 font-bold border-white/20"
         title="Print current forecast"
       >
-        <FiPrinter className="w-3.5 h-3.5 text-amber-500" />
+        <FiPrinter className="w-3.5 h-3.5 text-amber-400" />
         <span className="hidden sm:inline">Print</span>
       </button>
 
       <button
         onClick={toggleFullscreen}
-        className="p-1.5 rounded-full glass-card hover:bg-white/40 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-all"
+        className="p-1.5 rounded-full glass-card hover:bg-white/30 text-white font-bold transition-all border-white/20"
         title="Toggle Fullscreen"
       >
-        <FiMaximize className="w-3.5 h-3.5" />
+        <FiMaximize className="w-3.5 h-3.5 text-sky-300" />
       </button>
     </div>
   );

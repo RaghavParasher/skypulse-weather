@@ -15,44 +15,129 @@ const latLongToVector3 = (lat, lon, radius = 2) => {
   return new THREE.Vector3(x, y, z);
 };
 
+// Procedural fallback texture generator in case of slow network or offline mode
+const createProceduralEarthTexture = (isDay) => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+
+  // Deep ocean gradient
+  const grad = ctx.createLinearGradient(0, 0, 0, 512);
+  if (isDay) {
+    grad.addColorStop(0, '#0284c7');
+    grad.addColorStop(0.5, '#0369a1');
+    grad.addColorStop(1, '#075985');
+  } else {
+    grad.addColorStop(0, '#040d21');
+    grad.addColorStop(0.5, '#081736');
+    grad.addColorStop(1, '#0c2352');
+  }
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1024, 512);
+
+  // Draw lat/lon holographic grid lines
+  ctx.strokeStyle = isDay ? 'rgba(255, 255, 255, 0.15)' : 'rgba(56, 189, 248, 0.22)';
+  ctx.lineWidth = 1.5;
+  for (let lat = -80; lat <= 80; lat += 20) {
+    const y = ((90 - lat) / 180) * 512;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(1024, y);
+    ctx.stroke();
+  }
+  for (let lon = -180; lon <= 180; lon += 30) {
+    const x = ((lon + 180) / 360) * 1024;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, 512);
+    ctx.stroke();
+  }
+
+  // Draw stylized continent bands and glowing points
+  ctx.fillStyle = isDay ? 'rgba(16, 185, 129, 0.45)' : 'rgba(30, 64, 175, 0.55)';
+  // North America & Europe/Asia rough organic bands
+  ctx.beginPath();
+  ctx.arc(250, 160, 90, 0, Math.PI * 2);
+  ctx.arc(580, 150, 130, 0, Math.PI * 2);
+  ctx.arc(330, 340, 70, 0, Math.PI * 2);
+  ctx.arc(620, 320, 80, 0, Math.PI * 2);
+  ctx.arc(850, 360, 60, 0, Math.PI * 2);
+  ctx.fill();
+
+  // If night, add glowing city lights dots across continents
+  if (!isDay) {
+    ctx.fillStyle = '#38bdf8';
+    ctx.shadowColor = '#00f0ff';
+    ctx.shadowBlur = 8;
+    for (let i = 0; i < 350; i++) {
+      const cx = (Math.sin(i * 99) * 0.5 + 0.5) * 1024;
+      const cy = (Math.cos(i * 33) * 0.35 + 0.45) * 512;
+      ctx.beginPath();
+      ctx.arc(cx, cy, Math.random() * 2 + 0.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.ClampToEdgeWrapping;
+  return texture;
+};
+
 export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = 'New York', isDay = true }) => {
   const globeRef = useRef();
   const cloudsRef = useRef();
   const atmosphereRef = useRef();
 
+  // Default procedural textures so globe is immediately colorful and detailed (never white!)
+  const proceduralDay = useMemo(() => createProceduralEarthTexture(true), []);
+  const proceduralNight = useMemo(() => createProceduralEarthTexture(false), []);
+
   const [textures, setTextures] = useState({
-    day: null,
-    night: null,
+    day: proceduralDay,
+    night: proceduralNight,
     clouds: null,
     normal: null,
   });
 
   useEffect(() => {
     const loader = new THREE.TextureLoader();
-    const baseUrl = import.meta.env.BASE_URL || '/';
+    loader.crossOrigin = 'Anonymous';
 
-    const loadTexWithFallback = (localPath, cdnUrl) =>
+    // Reliable origin path calculation for GitHub Pages repo root or local dev
+    const repoBasePath = window.location.pathname.includes('/skypulse-weather')
+      ? `${window.location.origin}/skypulse-weather/textures/`
+      : `${window.location.origin}/textures/`;
+
+    const loadTexWithFallback = (localName, unpkgCdnUrl, fallbackTex) =>
       new Promise((resolve) => {
+        // Try exact root path first
         loader.load(
-          `${baseUrl}textures/${localPath}`,
+          `${repoBasePath}${localName}`,
           (tex) => resolve(tex),
           undefined,
           () => {
-            // If local path fails (e.g. on GitHub Pages subdirectory), fetch from official CDN
-            loader.load(cdnUrl, (tex) => resolve(tex), undefined, () => resolve(null));
+            // Try unpkg CORS-friendly CDN next
+            loader.load(
+              unpkgCdnUrl,
+              (tex) => resolve(tex),
+              undefined,
+              () => resolve(fallbackTex)
+            );
           }
         );
       });
 
     Promise.all([
-      loadTexWithFallback('earth_day.jpg', 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg'),
-      loadTexWithFallback('earth_night.png', 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_lights_2048.png'),
-      loadTexWithFallback('earth_clouds.png', 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_1024.png'),
-      loadTexWithFallback('earth_normal.jpg', 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg'),
+      loadTexWithFallback('earth_day.jpg', 'https://unpkg.com/three-globe@2.31.1/example/img/earth-day.jpg', proceduralDay),
+      loadTexWithFallback('earth_night.png', 'https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg', proceduralNight),
+      loadTexWithFallback('earth_clouds.png', 'https://unpkg.com/three-globe@2.31.1/example/img/earth-clouds.png', null),
+      loadTexWithFallback('earth_normal.jpg', 'https://unpkg.com/three-globe@2.31.1/example/img/earth-topology.png', null),
     ]).then(([day, night, clouds, normal]) => {
-      setTextures({ day, night, clouds, normal });
+      setTextures({ day: day || proceduralDay, night: night || proceduralNight, clouds, normal });
     });
-  }, []);
+  }, [proceduralDay, proceduralNight]);
 
   // Calculate pin position precisely on the surface of radius 2
   const pinPos = useMemo(() => latLongToVector3(latitude, longitude, 2.05), [latitude, longitude]);
@@ -83,10 +168,10 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
       />
 
       {/* High-Intensity Dynamic Lighting for Maximum Contrast & Glow */}
-      <ambientLight intensity={isDay ? 2.5 : 1.8} />
+      <ambientLight intensity={isDay ? 2.5 : 2.0} />
       <directionalLight
         position={[6, 5, 6]}
-        intensity={isDay ? 3.8 : 2.5}
+        intensity={isDay ? 3.5 : 2.2}
         color={isDay ? '#ffffff' : '#60a5fa'}
       />
       <pointLight position={[-6, -4, -6]} intensity={1.8} color="#38bdf8" />
@@ -97,13 +182,13 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
         {/* Core Earth Sphere (Real Continents Map, Oceans & Night City Lights) */}
         <Sphere args={[2, 64, 64]}>
           <meshStandardMaterial
-            map={isDay ? (textures.day || null) : (textures.night || null)}
+            map={isDay ? textures.day : textures.night}
             normalMap={textures.normal || null}
             normalScale={new THREE.Vector2(0.6, 0.6)}
-            emissiveMap={isDay ? null : (textures.night || null)}
-            emissive={isDay ? '#000000' : '#ffffff'}
-            emissiveIntensity={isDay ? 0 : 0.9}
-            color={!textures.day ? (isDay ? '#0369a1' : '#1e3a8a') : '#ffffff'}
+            emissiveMap={!isDay && textures.night ? textures.night : null}
+            emissive={!isDay && textures.night ? '#ffffff' : '#000000'}
+            emissiveIntensity={!isDay && textures.night ? 0.7 : 0}
+            color={!textures.day ? (isDay ? '#0284c7' : '#0f172a') : '#ffffff'}
             roughness={0.35}
             metalness={0.15}
           />
@@ -115,7 +200,7 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
             color={isDay ? '#7dd3fc' : '#38bdf8'}
             wireframe={true}
             transparent={true}
-            opacity={0.12}
+            opacity={0.15}
           />
         </Sphere>
 
@@ -123,12 +208,11 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
         <Sphere ref={cloudsRef} args={[2.04, 32, 32]}>
           <meshStandardMaterial
             map={textures.clouds || null}
-            color="#ffffff"
+            color={textures.clouds ? '#ffffff' : '#7dd3fc'}
             transparent={true}
-            opacity={textures.clouds ? 0.32 : 0.1}
+            opacity={textures.clouds ? 0.32 : 0.05}
             roughness={0.8}
-            emissive="#ffffff"
-            emissiveIntensity={0.1}
+            emissive="#000000"
           />
         </Sphere>
 
