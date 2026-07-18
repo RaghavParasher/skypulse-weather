@@ -12,32 +12,42 @@ import { AtmosphericBackground3D } from '../3d/AtmosphericBackground3D';
 export const WeatherBackground = ({ children }) => {
   const { weatherState } = useWeather();
 
-  // Background color gradients according to weather state and day/night
+  // Vibrant macOS Sonoma & Aurora Cyber-Glass color gradients
   const getGradientClasses = () => {
     switch (weatherState) {
       case 'sunny':
-        return 'bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-700 dark:from-sky-900 dark:via-blue-950 dark:to-slate-950';
+        return 'bg-gradient-to-br from-[#0284c7] via-[#2563eb] to-[#4f46e5] dark:from-[#0c4a6e] dark:via-[#1e3a8a] dark:to-[#311042] text-white';
       case 'night':
-        return 'bg-gradient-to-br from-slate-900 via-indigo-950 to-black';
+        return 'bg-gradient-to-br from-[#090d16] via-[#1e1b4b] to-[#311042] text-white';
       case 'cloudy':
-        return 'bg-gradient-to-br from-slate-400 via-blue-400 to-slate-600 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950';
+        return 'bg-gradient-to-br from-[#1e293b] via-[#334155] to-[#3b82f6] dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#312e81] text-white';
       case 'rain':
-        return 'bg-gradient-to-br from-slate-600 via-teal-800 to-slate-900 dark:from-slate-900 dark:via-slate-950 dark:to-black';
+        return 'bg-gradient-to-br from-[#0f172a] via-[#164e63] to-[#1e3a8a] dark:from-[#082f49] dark:via-[#0c4a6e] dark:to-[#172554] text-white';
       case 'snow':
-        return 'bg-gradient-to-br from-indigo-200 via-sky-300 to-slate-400 dark:from-slate-800 dark:via-indigo-950 dark:to-slate-900';
+        return 'bg-gradient-to-br from-[#38bdf8] via-[#60a5fa] to-[#818cf8] dark:from-[#0f172a] dark:via-[#1e3a8a] dark:to-[#312e81] text-white';
       case 'storm':
-        return 'bg-gradient-to-br from-slate-800 via-purple-950 to-black dark:from-slate-950 dark:via-purple-950 dark:to-black';
+        return 'bg-gradient-to-br from-[#180828] via-[#3b0764] to-[#090d16] dark:from-[#0c0414] dark:via-[#2e1065] dark:to-[#0f172a] text-white';
       case 'fog':
-        return 'bg-gradient-to-br from-slate-300 via-gray-400 to-slate-500 dark:from-slate-800 dark:via-gray-900 dark:to-slate-950';
+        return 'bg-gradient-to-br from-[#334155] via-[#475569] to-[#64748b] dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#334155] text-white';
       default:
-        return 'bg-gradient-to-br from-slate-900 via-indigo-950 to-black';
+        return 'bg-gradient-to-br from-[#090d16] via-[#1e1b4b] to-[#311042] text-white';
     }
   };
 
   return (
-    <div className={`min-h-screen w-full relative transition-colors duration-1000 overflow-x-hidden ${getGradientClasses()}`}>
-      {/* Background Animated Layers + GPU 3D Atmospheric Particle System */}
+    <div className={`min-h-screen w-full relative transition-all duration-1000 overflow-x-hidden ${getGradientClasses()}`}>
+      {/* Animated Floating Aurora Mesh Spotlights behind glass */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Top-left golden/cyan aurora */}
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-sky-400/30 via-blue-500/25 to-indigo-500/20 blur-[130px] animate-pulse pointer-events-none" style={{ animationDuration: '8s' }} />
+        
+        {/* Bottom-right violet/magenta aurora */}
+        <div className="absolute -bottom-40 -right-40 w-[650px] h-[650px] rounded-full bg-gradient-to-tr from-purple-600/25 via-pink-500/20 to-blue-600/20 blur-[140px] animate-pulse pointer-events-none" style={{ animationDuration: '12s' }} />
+        
+        {/* Center ambient glow blob */}
+        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-cyan-400/15 to-blue-600/15 blur-[120px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
+
+        {/* GPU 3D Atmospheric Particle System */}
         <AtmosphericBackground3D />
 
         {weatherState === 'sunny' && (

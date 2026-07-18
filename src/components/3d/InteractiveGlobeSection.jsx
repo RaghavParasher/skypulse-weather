@@ -59,12 +59,12 @@ export const InteractiveGlobeSection = () => {
       </div>
 
       {/* 3D Canvas Viewport */}
-      <div className="w-full h-[360px] sm:h-[460px] rounded-3xl overflow-hidden relative my-2 bg-gradient-to-b from-slate-950/80 via-slate-900/70 to-blue-950/80 border border-white/20 shadow-inner">
+      <div className="w-full h-[380px] sm:h-[480px] rounded-3xl overflow-hidden relative my-3 bg-gradient-to-b from-[#090d16] via-[#1e1b4b] to-[#0284c7]/50 border border-blue-400/40 shadow-[inset_0_0_60px_rgba(56,189,248,0.3)]">
         {/* Ambient starry backdrop dots inside the 3D frame */}
-        <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#7dd3fc_1.5px,transparent_1.5px)] [background-size:28px_28px] opacity-35 pointer-events-none" />
 
         <Canvas
-          camera={{ position: [0, 0, 4.8], fov: 48 }}
+          camera={{ position: [0, 0, 4.5], fov: 48 }}
           gl={{ antialias: true, alpha: true }}
           dpr={[1, 2]}
         >
