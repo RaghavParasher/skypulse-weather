@@ -47,20 +47,20 @@ export const WeatherCard = () => {
           </div>
           <div>
             <div className="flex items-center space-x-3">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white drop-shadow-sm">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white drop-shadow-[0_2px_12px_rgba(255,255,255,0.4)]">
                 {activeLocation.name}
               </h1>
               {activeLocation.country && (
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/30 dark:bg-slate-800/80 border border-white/40 dark:border-white/20 text-slate-800 dark:text-slate-200 shadow-sm backdrop-blur-md">
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/20 border border-white/30 text-white shadow-sm backdrop-blur-md">
                   {activeLocation.country}
                 </span>
               )}
             </div>
             {activeLocation.admin1 && activeLocation.admin1 !== activeLocation.name && (
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-semibold mt-1 flex items-center space-x-1.5">
+              <p className="text-xs sm:text-sm text-slate-200 font-semibold mt-1 flex items-center space-x-1.5">
                 <span>{activeLocation.admin1}</span>
                 <span>•</span>
-                <span className="font-mono opacity-80">{activeLocation.latitude.toFixed(2)}°, {activeLocation.longitude.toFixed(2)}°</span>
+                <span className="font-mono opacity-90">{activeLocation.latitude.toFixed(2)}°, {activeLocation.longitude.toFixed(2)}°</span>
               </p>
             )}
           </div>
@@ -72,9 +72,9 @@ export const WeatherCard = () => {
             onClick={refreshWeather}
             disabled={loading}
             title="Refresh weather forecast"
-            className="flex items-center space-x-2 px-4 py-2 rounded-2xl bg-white/25 dark:bg-slate-900/60 border border-white/40 dark:border-white/20 text-xs font-bold hover:bg-white/45 dark:hover:bg-slate-800 transition-all text-slate-800 dark:text-slate-100 shadow-md hover:scale-105 disabled:opacity-50"
+            className="flex items-center space-x-2 px-4 py-2 rounded-2xl bg-white/15 border border-white/30 text-xs font-bold hover:bg-white/30 transition-all text-white shadow-md hover:scale-105 disabled:opacity-50"
           >
-            <FiRefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-blue-500' : 'text-blue-500'}`} />
+            <FiRefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-sky-400' : 'text-sky-400'}`} />
             <span className="hidden sm:inline">
               Updated {lastUpdated ? formatTime(lastUpdated, timeFormat) : 'Now'}
             </span>
@@ -89,8 +89,8 @@ export const WeatherCard = () => {
             title={fav ? 'Remove city from Favorites' : 'Save city to Favorites'}
             className={`p-3 rounded-2xl transition-all duration-300 shadow-lg ${
               fav
-                ? 'bg-rose-500/25 border border-rose-500/50 text-rose-500 shadow-rose-500/30 scale-105'
-                : 'bg-white/25 dark:bg-slate-900/60 border border-white/40 dark:border-white/20 hover:bg-white/45 text-slate-700 dark:text-slate-200 hover:scale-105'
+                ? 'bg-rose-500/30 border border-rose-500/60 text-rose-400 shadow-rose-500/30 scale-105'
+                : 'bg-white/15 border border-white/30 hover:bg-white/30 text-white hover:scale-105'
             }`}
           >
             <FiHeart className={`w-5 h-5 ${fav ? 'fill-rose-500' : ''}`} />
@@ -105,7 +105,7 @@ export const WeatherCard = () => {
           <div className="flex items-center space-x-6 sm:space-x-8">
             {/* 3D Floating Weather Sculpture Canvas */}
             <div className="relative w-28 h-28 sm:w-36 sm:h-36 shrink-0 flex items-center justify-center">
-              <div className="absolute inset-0 bg-blue-500/30 dark:bg-blue-400/20 rounded-full blur-2xl animate-pulse" />
+              <div className="absolute inset-0 bg-blue-500/30 rounded-full blur-2xl animate-pulse" />
               <Canvas
                 camera={{ position: [0, 0, 3.5], fov: 50 }}
                 gl={{ alpha: true, antialias: true }}
@@ -120,15 +120,15 @@ export const WeatherCard = () => {
 
             <div>
               <div className="flex items-baseline">
-                <span className="text-7xl sm:text-8xl lg:text-9xl font-black tracking-tighter bg-gradient-to-br from-slate-950 via-slate-800 to-blue-600 dark:from-white dark:via-slate-100 dark:to-blue-300 bg-clip-text text-transparent drop-shadow-md">
+                <span className="text-7xl sm:text-8xl lg:text-9xl font-black tracking-tighter bg-gradient-to-br from-white via-slate-100 to-sky-300 bg-clip-text text-transparent drop-shadow-[0_4px_20px_rgba(255,255,255,0.35)]">
                   {formatTemperature(current.temperature_2m, tempUnit)}
                 </span>
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2.5">
-                <span className="px-4 py-1.5 rounded-full text-sm sm:text-base font-extrabold bg-gradient-to-r from-blue-500/25 via-indigo-500/25 to-sky-500/25 dark:from-blue-500/35 dark:to-indigo-500/35 text-blue-800 dark:text-blue-200 border border-blue-400/40 shadow-sm">
+                <span className="px-4 py-1.5 rounded-full text-sm sm:text-base font-extrabold bg-gradient-to-r from-blue-500/35 via-indigo-500/35 to-sky-500/35 text-sky-200 border border-blue-400/50 shadow-sm">
                   {meta.label}
                 </span>
-                <span className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/30 dark:bg-slate-800/80 border border-white/40 dark:border-white/20 text-slate-700 dark:text-slate-300">
+                <span className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/20 border border-white/30 text-slate-200">
                   {isDay ? '☀️ Daytime Atmosphere' : '🌙 Night Sky Conditions'}
                 </span>
               </div>
@@ -137,34 +137,34 @@ export const WeatherCard = () => {
         </div>
 
         {/* Right column: Atmospheric High / Low & Feels Like Capsule */}
-        <div className="lg:col-span-4 flex flex-col space-y-3.5 bg-white/30 dark:bg-slate-900/60 rounded-3xl p-6 border border-white/40 dark:border-white/20 backdrop-blur-2xl shadow-xl hover:shadow-2xl transition-all duration-300">
+        <div className="lg:col-span-4 flex flex-col space-y-3.5 bg-slate-900/65 rounded-3xl p-6 border border-white/30 backdrop-blur-2xl shadow-xl hover:shadow-2xl transition-all duration-300">
           <div className="flex items-center justify-between text-base font-bold">
-            <span className="text-slate-600 dark:text-slate-300">Feels Like</span>
-            <span className="text-xl font-black text-slate-900 dark:text-white bg-blue-500/15 dark:bg-blue-400/20 px-3 py-1 rounded-xl border border-blue-400/30">
+            <span className="text-slate-300">Feels Like</span>
+            <span className="text-xl font-black text-white bg-blue-500/25 px-3 py-1 rounded-xl border border-blue-400/40">
               {formatTemperature(current.apparent_temperature, tempUnit)}
             </span>
           </div>
 
-          <div className="flex items-center justify-between text-base font-bold border-t border-white/20 dark:border-white/10 pt-3.5">
-            <span className="text-slate-600 dark:text-slate-300 flex items-center space-x-2">
-              <span className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-500">
+          <div className="flex items-center justify-between text-base font-bold border-t border-white/20 pt-3.5">
+            <span className="text-slate-300 flex items-center space-x-2">
+              <span className="p-1.5 rounded-lg bg-emerald-500/25 text-emerald-400">
                 <FiArrowUp className="w-4 h-4" />
               </span>
               <span>Today's High</span>
             </span>
-            <span className="text-lg font-black text-slate-900 dark:text-white font-mono">
+            <span className="text-lg font-black text-white font-mono">
               {todayMax !== null ? formatTemperature(todayMax, tempUnit) : '--°'}
             </span>
           </div>
 
-          <div className="flex items-center justify-between text-base font-bold border-t border-white/20 dark:border-white/10 pt-3.5">
-            <span className="text-slate-600 dark:text-slate-300 flex items-center space-x-2">
-              <span className="p-1.5 rounded-lg bg-blue-500/20 text-blue-400">
+          <div className="flex items-center justify-between text-base font-bold border-t border-white/20 pt-3.5">
+            <span className="text-slate-300 flex items-center space-x-2">
+              <span className="p-1.5 rounded-lg bg-blue-500/25 text-blue-300">
                 <FiArrowDown className="w-4 h-4" />
               </span>
               <span>Today's Low</span>
             </span>
-            <span className="text-lg font-black text-slate-900 dark:text-white font-mono">
+            <span className="text-lg font-black text-white font-mono">
               {todayMin !== null ? formatTemperature(todayMin, tempUnit) : '--°'}
             </span>
           </div>

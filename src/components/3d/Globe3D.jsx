@@ -29,16 +29,26 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
 
   useEffect(() => {
     const loader = new THREE.TextureLoader();
-    const loadTex = (url) =>
+    const baseUrl = import.meta.env.BASE_URL || '/';
+
+    const loadTexWithFallback = (localPath, cdnUrl) =>
       new Promise((resolve) => {
-        loader.load(url, (tex) => resolve(tex), undefined, () => resolve(null));
+        loader.load(
+          `${baseUrl}textures/${localPath}`,
+          (tex) => resolve(tex),
+          undefined,
+          () => {
+            // If local path fails (e.g. on GitHub Pages subdirectory), fetch from official CDN
+            loader.load(cdnUrl, (tex) => resolve(tex), undefined, () => resolve(null));
+          }
+        );
       });
 
     Promise.all([
-      loadTex('./textures/earth_day.jpg'),
-      loadTex('./textures/earth_night.png'),
-      loadTex('./textures/earth_clouds.png'),
-      loadTex('./textures/earth_normal.jpg'),
+      loadTexWithFallback('earth_day.jpg', 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg'),
+      loadTexWithFallback('earth_night.png', 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_lights_2048.png'),
+      loadTexWithFallback('earth_clouds.png', 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_1024.png'),
+      loadTexWithFallback('earth_normal.jpg', 'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg'),
     ]).then(([day, night, clouds, normal]) => {
       setTextures({ day, night, clouds, normal });
     });
@@ -89,13 +99,13 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
           <meshStandardMaterial
             map={isDay ? (textures.day || null) : (textures.night || null)}
             normalMap={textures.normal || null}
-            normalScale={new THREE.Vector2(0.5, 0.5)}
+            normalScale={new THREE.Vector2(0.6, 0.6)}
             emissiveMap={isDay ? null : (textures.night || null)}
             emissive={isDay ? '#000000' : '#ffffff'}
-            emissiveIntensity={isDay ? 0 : 0.85}
-            color={!textures.day ? (isDay ? '#0284c7' : '#1e3a8a') : '#ffffff'}
-            roughness={0.4}
-            metalness={0.2}
+            emissiveIntensity={isDay ? 0 : 0.9}
+            color={!textures.day ? (isDay ? '#0369a1' : '#1e3a8a') : '#ffffff'}
+            roughness={0.35}
+            metalness={0.15}
           />
         </Sphere>
 
@@ -105,7 +115,7 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
             color={isDay ? '#7dd3fc' : '#38bdf8'}
             wireframe={true}
             transparent={true}
-            opacity={0.18}
+            opacity={0.12}
           />
         </Sphere>
 
@@ -115,10 +125,10 @@ export const Globe3D = ({ latitude = 40.71, longitude = -74.01, locationName = '
             map={textures.clouds || null}
             color="#ffffff"
             transparent={true}
-            opacity={textures.clouds ? 0.65 : 0.25}
+            opacity={textures.clouds ? 0.32 : 0.1}
             roughness={0.8}
             emissive="#ffffff"
-            emissiveIntensity={0.15}
+            emissiveIntensity={0.1}
           />
         </Sphere>
 

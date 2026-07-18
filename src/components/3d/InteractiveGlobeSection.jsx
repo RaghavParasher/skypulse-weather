@@ -32,15 +32,15 @@ export const InteractiveGlobeSection = () => {
           </div>
           <div>
             <div className="flex items-center space-x-2.5">
-              <h2 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white uppercase drop-shadow-sm">
+              <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase drop-shadow-[0_2px_10px_rgba(255,255,255,0.4)]">
                 Interactive 3D Earth & Atmosphere
               </h2>
-              <span className="px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-blue-500/25 text-blue-300 border border-blue-400/40 shadow-sm animate-pulse">
+              <span className="px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-blue-500/35 text-sky-200 border border-blue-400/50 shadow-sm animate-pulse">
                 Spatial 3D Engine
               </span>
             </div>
-            <p className="text-xs font-extrabold text-slate-600 dark:text-slate-300 mt-0.5">
-              🖱️ Drag to rotate Earth • 🔍 Scroll to zoom • Centered on <span className="text-blue-500 dark:text-blue-400 font-black">{locName} ({lat.toFixed(2)}°, {lon.toFixed(2)}°)</span>
+            <p className="text-xs font-extrabold text-slate-200 mt-0.5">
+              🖱️ Drag to rotate Earth • 🔍 Scroll to zoom • Centered on <span className="text-sky-300 font-black">{locName} ({lat.toFixed(2)}°, {lon.toFixed(2)}°)</span>
             </p>
           </div>
         </div>
@@ -50,7 +50,7 @@ export const InteractiveGlobeSection = () => {
           <button
             onClick={() => setGlobeDayMode(prev => (prev === null ? !isDay : !prev))}
             title="Toggle Day/Night Holographic Globe Lighting"
-            className="flex items-center space-x-2 px-3.5 py-2 rounded-2xl bg-white/25 dark:bg-slate-900/60 border border-white/40 dark:border-white/20 text-xs font-bold hover:bg-white/45 dark:hover:bg-slate-800 transition-all text-slate-800 dark:text-slate-100 shadow-md hover:scale-105"
+            className="flex items-center space-x-2 px-3.5 py-2 rounded-2xl bg-white/15 border border-white/30 text-xs font-bold hover:bg-white/30 transition-all text-white shadow-md hover:scale-105"
           >
             {isDay ? <FiSun className="w-4 h-4 text-amber-400 animate-spin" style={{ animationDuration: '10s' }} /> : <FiMoon className="w-4 h-4 text-sky-400" />}
             <span>{isDay ? 'Day Mode' : 'Night Mode'}</span>
